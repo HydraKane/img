@@ -37,7 +37,7 @@ class ImageCLI(object):
         command, parameters = self.parse_arguments()
         image_size = self.create_size_tuple(parameters.get("size") or "50x50")
         for source in command:
-            self.draw_image(source, parameters)
+            self.draw_image(source, image_size, parameters)
             print()
 
     def draw_image(self, filename, size, parameters):
@@ -46,7 +46,7 @@ class ImageCLI(object):
                 f"Invalid size parameter: {parameters.get('size')}"
             )
         try:
-            DrawImage().from_file(filename, size).draw_image() if os.path.isfile(
+            DrawImage.from_file(filename, size).draw_image() if os.path.isfile(
                 filename
             ) else DrawImage.from_url(filename, size).draw_image()
         except Exception as exception:
